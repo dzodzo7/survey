@@ -18,8 +18,9 @@ public class SurveyAnswer extends BaseEntity {
     public SurveyAnswer() {
     }
 
-    public SurveyAnswer(String text) {
+    public SurveyAnswer(String text, SurveyQuestion surveyQuestion) {
         this.text = text;
+        this.surveyQuestion = surveyQuestion;
     }
 
     public String getText() {
@@ -28,5 +29,13 @@ public class SurveyAnswer extends BaseEntity {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public SurveyQuestion getSurveyQuestion() {
+        return surveyQuestion;
+    }
+
+    public void setSurveyQuestion(SurveyQuestion surveyQuestion) {
+        this.surveyQuestion = surveyQuestion;
     }
 }

@@ -17,11 +17,17 @@ public class Survey extends BaseEntity {
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<SurveyQuestion> surveyQuestions;
 
-    @OneToOne
-    private SurveyPrivacy surveyPrivacy;
+    @ManyToOne
+    @JoinColumn(name = "fk_survey_user")
+    private SurveyUser surveyUser;
 
-    @OneToOne
-    private SurveyStatus surveyStatus;
+//    @OneToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "fk_survey_privacy")
+//    private SurveyPrivacy surveyPrivacy = new SurveyPrivacy(SurveyPrivacy.PrivacyType.PUBLIC);
+//
+//    @OneToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "fk_survey_status")
+//    private SurveyStatus surveyStatus = new SurveyStatus(SurveyStatus.SurveyStatusType.OPEN);
 
     @Future
     @Temporal(TemporalType.DATE)
@@ -31,11 +37,12 @@ public class Survey extends BaseEntity {
     public Survey() {
     }
 
-    public Survey(String surveyDescription, Set<SurveyQuestion> surveyQuestions, SurveyPrivacy surveyPrivacy, SurveyStatus surveyStatus, Date surveyExpireDate) {
+    public Survey(String surveyDescription, Set<SurveyQuestion> surveyQuestions, SurveyUser surveyUser, Date surveyExpireDate) {
         this.surveyDescription = surveyDescription;
         this.surveyQuestions = surveyQuestions;
-        this.surveyPrivacy = surveyPrivacy;
-        this.surveyStatus = surveyStatus;
+        this.surveyUser = surveyUser;
+//        this.surveyPrivacy = surveyPrivacy;
+//        this.surveyStatus = surveyStatus;
         this.surveyExpireDate = surveyExpireDate;
     }
 
@@ -55,21 +62,29 @@ public class Survey extends BaseEntity {
         this.surveyQuestions = surveyQuestions;
     }
 
-    public SurveyPrivacy getSurveyPrivacy() {
-        return surveyPrivacy;
+    public SurveyUser getSurveyUser() {
+        return surveyUser;
     }
 
-    public void setSurveyPrivacy(SurveyPrivacy surveyPrivacy) {
-        this.surveyPrivacy = surveyPrivacy;
+    public void setSurveyUser(SurveyUser surveyUser) {
+        this.surveyUser = surveyUser;
     }
 
-    public SurveyStatus getSurveyStatus() {
-        return surveyStatus;
-    }
-
-    public void setSurveyStatus(SurveyStatus surveyStatus) {
-        this.surveyStatus = surveyStatus;
-    }
+//    public SurveyPrivacy getSurveyPrivacy() {
+//        return surveyPrivacy;
+//    }
+//
+//    public void setSurveyPrivacy(SurveyPrivacy surveyPrivacy) {
+//        this.surveyPrivacy = surveyPrivacy;
+//    }
+//
+//    public SurveyStatus getSurveyStatus() {
+//        return surveyStatus;
+//    }
+//
+//    public void setSurveyStatus(SurveyStatus surveyStatus) {
+//        this.surveyStatus = surveyStatus;
+//    }
 
     public Date getSurveyExpireDate() {
         return surveyExpireDate;

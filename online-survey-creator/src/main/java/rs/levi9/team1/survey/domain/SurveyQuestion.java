@@ -12,10 +12,10 @@ public class SurveyQuestion extends BaseEntity {
     private String text;
 
     @OneToMany(mappedBy = "surveyQuestion", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<SurveyAnswer> surveyAnswers = new HashSet<>();
+    private Set<SurveyAnswer> surveyAnswers;
 
     @Enumerated(EnumType.STRING)
-    private QuestionType questionType;
+    private QuestionType questionType = QuestionType.SINGLE_ANSWER;
 
     @ManyToOne
     @JoinColumn(name = "fk_survey")
@@ -23,6 +23,16 @@ public class SurveyQuestion extends BaseEntity {
 
     enum QuestionType {
         SINGLE_ANSWER, MULTIPLE_ANSWERS
+    }
+
+    public SurveyQuestion() {
+    }
+
+    public SurveyQuestion(String text, Set<SurveyAnswer> surveyAnswers, QuestionType questionType, Survey survey) {
+        this.text = text;
+        this.surveyAnswers = surveyAnswers;
+        this.questionType = questionType;
+        this.survey = survey;
     }
 
     public String getText() {
@@ -49,12 +59,11 @@ public class SurveyQuestion extends BaseEntity {
         this.questionType = questionType;
     }
 
-    public SurveyQuestion() {
+    public Survey getSurvey() {
+        return survey;
     }
 
-    public SurveyQuestion(String text, Set<SurveyAnswer> surveyAnswers, QuestionType questionType) {
-        this.text = text;
-        this.surveyAnswers = surveyAnswers;
-        this.questionType = questionType;
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
     }
 }
